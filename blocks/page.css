@@ -1,1 +1,22 @@
+.page {
+  margin: 0 auto;
+  background-color: #000000;
+  color: white;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.2;
+}
 
+.page__section {
+  max-width: 880px;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page__content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0 20px;
+}
