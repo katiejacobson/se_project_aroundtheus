@@ -19,3 +19,14 @@ This project is made so all the elements are displayed correctly on popular scre
 The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
   
 Good luck and have fun!
+
+**Media Queries**
+
+I added media queries for mobile (max-width: 480px) and tablet (max-width: 785px).
+
+**Github Pages URL**
+https://katiejacobson.github.io/se_project_aroundtheus/
+
+**To Improve**
+
+I would like to make a smoother transition for the breakpoint at 785px since I transitioned from grid to flexbox for the profile element and the transition is pretty jarring.
