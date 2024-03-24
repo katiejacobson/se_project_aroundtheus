@@ -27,6 +27,9 @@ I added media queries for mobile (max-width: 480px) and tablet (max-width: 785px
 **Github Pages URL**
 https://katiejacobson.github.io/se_project_aroundtheus/
 
+**Video Explanation**
+https://drive.google.com/file/d/16A_3bRf7MviHZc_8syy4p5sqec1dWMep/view?usp=sharing
+
 **To Improve**
 
 I would like to make a smoother transition for the breakpoint at 785px since I transitioned from grid to flexbox for the profile element and the transition is pretty jarring.
