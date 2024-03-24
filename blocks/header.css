@@ -8,3 +8,17 @@
   height: 33px;
   margin-bottom: 41px;
 }
+
+@media screen and (max-width: 480px) {
+  .header__image {
+    height: 24px;
+    width: 126px;
+    margin: 28px 167px 32px 27px;
+  }
+}
+
+@media screen and (max-width: 785px) {
+  .header {
+    margin-top: 45px;
+  }
+}
