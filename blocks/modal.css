@@ -49,14 +49,13 @@
 }
 
 .modal__heading {
-  margin: 0px;
+  margin: 0px 0px 54px;
   font-weight: 900;
   font-size: 24px;
 }
 
-.modal__title {
+.modal__input {
   width: 100%;
-  margin-top: 54px;
   padding-bottom: 14px;
   border: none;
   border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
@@ -66,16 +65,8 @@
   line-height: 1.2;
 }
 
-.modal__description {
-  width: 100%;
+.modal__input:last-of-type {
   margin-top: 30px;
-  padding-bottom: 14px;
-  border: none;
-  border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
-  max-width: 358px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.2;
 }
 
 .modal__submit-button {
@@ -84,7 +75,7 @@
   height: 50px;
   border-radius: 2px;
   background-color: #000000;
-  margin-top: 48px;
+  margin-top: 45px;
   color: #ffffff;
   font-size: 18px;
   font-weight: 400;
@@ -105,18 +96,15 @@
 
   .modal__heading {
     font-size: 18px;
+    margin-bottom: 75px;
   }
 
-  .modal__title {
-    max-width: 238px;
-    margin-top: 75px;
-  }
-
-  .modal__description {
+  .modal__input {
     max-width: 238px;
   }
 
   .modal__submit-button {
     max-width: 238px;
+    font-size: 14px;
   }
 }
