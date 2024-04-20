@@ -26,7 +26,7 @@ const initialCards = [
 ];
 
 const profileEditButton = document.querySelector(".profile__edit-button");
-const profileEditModal = document.querySelector(".modal");
+const profileEditModal = document.querySelector("#edit-modal");
 const modalCloseButton = document.querySelector(".modal__close-button");
 const profileFormElement = document.querySelector("#profile-form");
 
@@ -72,6 +72,8 @@ function getCardElement(data) {
   return cardElement;
 }
 
-for (let i = 0; i < initialCards.length; i++) {
-  galleryCards.append(getCardElement(initialCards[i]));
-}
+// for (let i = 0; i < initialCards.length; i++) {
+//   galleryCards.append(getCardElement(initialCards[i]));
+// }
+
+initialCards.forEach((item) => galleryCards.append(getCardElement(item)));
