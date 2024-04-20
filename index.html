@@ -60,6 +60,7 @@
       </footer>
     </div>
 
+    <!-- Edit Modal -->
     <div class="modal" id="edit-modal">
       <div class="modal__container">
         <button
@@ -82,6 +83,41 @@
             name="description"
             id="description"
             placeholder="Job"
+          />
+          <button
+            class="modal__submit-button"
+            type="submit"
+            aria-label="submit"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add Card Modal -->
+    <div class="modal" id="card-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close-button"
+          type="button"
+          aria-label="close"
+        ></button>
+        <h2 class="modal__heading">New Place</h2>
+        <form class="modal__form" id="add-card-form">
+          <input
+            class="modal__input modal__input_type_title"
+            name="title"
+            type="text"
+            id="title"
+            placeholder="Title"
+          />
+          <input
+            class="modal__input modal__input_type_url"
+            type="text"
+            name="url"
+            id="url"
+            placeholder="Image URL"
           />
           <button
             class="modal__submit-button"
