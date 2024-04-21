@@ -41,11 +41,17 @@
           <ul class="gallery__cards">
             <template id="card-template">
               <li class="card">
+                <img
+                  class="card__trash-icon"
+                  src="images/trash.svg"
+                  alt="trash icon"
+                />
                 <img class="card__image" src="" alt="" />
                 <div class="card__info">
                   <h2 class="card__title"></h2>
                   <button
                     class="card__like-button"
+                    id="card__like-button"
                     type="button"
                     aria-label="Like"
                   ></button>
