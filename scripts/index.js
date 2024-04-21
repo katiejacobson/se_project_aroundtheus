@@ -86,9 +86,10 @@ function getCardElement(data) {
     cardLikeButton.classList.toggle("card__like-button_active");
   });
 
-  //find delete button
-  //add Event Listener to delete button
-  // cardElement.remove()
+  const cardDeleteButton = cardElement.querySelector(".card__trash-icon");
+  cardDeleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
 
   //add a clickListener to clickImage element
   //openModal with previewImageModal (add into HTML)
