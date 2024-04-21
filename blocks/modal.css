@@ -27,6 +27,17 @@
   max-width: 430px;
 }
 
+.modal__container_preview-image {
+  box-shadow: #000000 15%;
+  color: #000000;
+  margin: 10px auto;
+  border-radius: 10px;
+  position: relative;
+  top: 90px;
+  bottom: 90px;
+  max-height: 540px;
+}
+
 .modal__close-button {
   position: absolute;
   top: -45px;
@@ -79,6 +90,24 @@
   color: #ffffff;
   font-size: 18px;
   font-weight: 400;
+}
+
+.modal__image-preview {
+  max-width: 75vw;
+  max-height: 75vh;
+  position: relative;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.modal__image-text {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  font-family: Inter;
+  margin-top: 10px;
+  padding: 0;
 }
 
 @media screen and (max-width: 480px) {

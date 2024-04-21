@@ -56,6 +56,11 @@
   cursor: pointer;
 }
 
+.card__trash-button {
+  border: 0;
+  background-color: #000000;
+}
+
 .card__trash-icon {
   width: 18px;
   height: 19px;
@@ -67,4 +72,11 @@
 
 .card__trash-icon:hover {
   opacity: 60%;
+}
+
+#card__preview-button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: #000000;
 }

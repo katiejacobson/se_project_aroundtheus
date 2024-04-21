@@ -41,12 +41,16 @@
           <ul class="gallery__cards">
             <template id="card-template">
               <li class="card">
-                <img
-                  class="card__trash-icon"
-                  src="images/trash.svg"
-                  alt="trash icon"
-                />
-                <img class="card__image" src="" alt="" />
+                <button class="card__trash-button">
+                  <img
+                    class="card__trash-icon"
+                    src="images/trash.svg"
+                    alt="trash icon"
+                  />
+                </button>
+                <button id="card__preview-button">
+                  <img class="card__image" src="" alt="" />
+                </button>
                 <div class="card__info">
                   <h2 class="card__title"></h2>
                   <button
@@ -133,6 +137,19 @@
             Save
           </button>
         </form>
+      </div>
+    </div>
+
+    <!-- Add Image Modal -->
+    <div class="modal" id="image-modal">
+      <div class="modal__container_preview-image">
+        <button
+          class="modal__close-button"
+          type="button"
+          aria-label="close"
+        ></button>
+        <img class="modal__image-preview" src="" alt="name" />
+        <p class="modal__image-text" id="modal__image-text"></p>
       </div>
     </div>
 
