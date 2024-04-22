@@ -10,10 +10,19 @@
   padding-right: 19px;
   padding-left: 19px;
   display: none;
+
+  /* smooth transition when opening */
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s linear;
 }
 
 .modal_opened {
   display: flex;
+
+  /* smooth transition when opening */
+  visibility: visible;
+  opacity: 1;
 }
 
 .modal__container {
