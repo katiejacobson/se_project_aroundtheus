@@ -80,6 +80,7 @@ function handleNewCardFormSubmit(evt) {
   const name = cardTitleInput.value;
   const link = cardImageInput.value;
   renderCard({ name, link }, galleryCards);
+  console.log("reset works?");
   evt.target.reset();
   closeModal(cardEditModal);
 }
