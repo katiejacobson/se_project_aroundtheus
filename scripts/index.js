@@ -53,10 +53,10 @@ const previewImageDisplay = previewImageModal.querySelector(
 const previewImageText = previewImageModal.querySelector(".modal__image-text");
 
 //Form data
-const nameInput = profileEditModal.querySelector("#title");
+const nameInput = profileEditModal.querySelector("#profile-title");
 const jobInput = profileEditModal.querySelector("#description");
 
-const cardTitleInput = cardEditModal.querySelector("#title");
+const cardTitleInput = cardEditModal.querySelector("#card-title");
 const cardImageInput = cardEditModal.querySelector("#url");
 
 //Functions
@@ -102,12 +102,10 @@ function getCardElement(data) {
   const previewImageButton = cardElement.querySelector("#card__preview-button");
 
   previewImageButton.addEventListener("click", () => {
-    console.log("click");
     openModal(previewImageModal);
     previewImageDisplay.src = data.link;
     previewImageDisplay.alt = data.name;
     previewImageText.textContent = data.name;
-    console.log(previewImageText.textContent);
   });
 
   previewImageCloseButton.addEventListener("click", () =>

@@ -9,7 +9,6 @@
   background-color: rgba(0, 0, 0, 0.5);
   padding-right: 19px;
   padding-left: 19px;
-  display: none;
 
   /* smooth transition when opening */
   visibility: hidden;
@@ -18,8 +17,6 @@
 }
 
 .modal_opened {
-  display: flex;
-
   /* smooth transition when opening */
   visibility: visible;
   opacity: 1;
@@ -27,7 +24,7 @@
 
 .modal__container {
   background-color: #ffffff;
-  box-shadow: #000000 15%;
+  box-shadow: 2px 2px 2px 2px #000000;
   color: #000000;
   margin: auto;
   padding: 36px;
@@ -37,7 +34,7 @@
 }
 
 .modal__container_preview-image {
-  box-shadow: #000000 15%;
+  box-shadow: 2px 2px 2px 2px #000000;
   color: #000000;
   margin: 10px auto;
   border-radius: 10px;
@@ -90,7 +87,7 @@
 }
 
 .modal__submit-button {
-  padding: 50px auto;
+  padding: 50px;
   width: 358px;
   height: 50px;
   border-radius: 2px;
