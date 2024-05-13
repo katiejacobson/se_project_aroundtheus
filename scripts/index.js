@@ -117,12 +117,20 @@ function renderCard(cardData) {
   galleryCards.prepend(cardElement);
 }
 
+function escapeKey(evt) {
+  if ((evt.key = "Esc")) {
+    closeModal(profileEditModal);
+    closeModal(cardEditModal);
+  }
+}
+
 //Event Listeners
 profileEditButton.addEventListener("click", () => {
   openModal(profileEditModal);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
+
 profileModalCloseButton.addEventListener("click", () =>
   closeModal(profileEditModal)
 );
@@ -135,6 +143,25 @@ cardFormElement.addEventListener("submit", handleNewCardFormSubmit);
 previewImageCloseButton.addEventListener("click", () =>
   closeModal(previewImageModal)
 );
+
+profileEditModal.addEventListener("mousedown", (evt) => {
+  if (evt.target.classList.contains("modal")) {
+    closeModal(profileEditModal);
+  }
+});
+
+cardEditModal.addEventListener("mousedown", (evt) => {
+  if (evt.target.classList.contains("modal")) {
+    closeModal(cardEditModal);
+  }
+});
+
+window.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closeModal(cardEditModal);
+    closeModal(profileEditModal);
+  }
+});
 
 //Display cards
 initialCards.forEach((cardData) => renderCard(cardData, galleryCards));

@@ -14,6 +14,8 @@ This project has been updated to include JavaScript functionality including open
 
 Update: This project has been updated to allow users to add and delete cards of images. Users can "like" images and enlarge the pictures.
 
+Update: This project has been updated with form validation. Additionally, users can close the modal window by clicking outside the modal window and by pressing the escape key.
+
 **Description of Techniques**
 
 This is a chance to practice using flexbox and grid displays and positioning elements for different display sizes. While the gallery of images is responsive due to grid and grid-template-columns with auto-fit, media queries were used to make breakpoints at 480px and 785px. Flexbox was used for the profile elements and changing to flex-direction: columns at lower screen sizes allowed a reorganization of the profile elements so they stacked on top of each other.
@@ -21,6 +23,8 @@ This is a chance to practice using flexbox and grid displays and positioning ele
 Vanilla JS has been used to add functionality including opening and closing profile edit boxes and changing the name and description in the profile. A template card has been used to allow rendering of cards from an array of objects.
 
 Update: Users can input data (name and image url) into the "add card" form and a new card will be added with the name and image. Additionally, classList.add and classList.remove have been used to allow modals to be opened and closed.
+
+Update: Form validation has been enabled using the ValidityState property to validate form input. The submission button is also disabled until valid form input is added to the text field. Event Listeners for mousedown and keydown for Escape have been added to close the modal windows.
 
 **Figma**
 
@@ -43,4 +47,6 @@ https://drive.google.com/file/d/16A_3bRf7MviHZc_8syy4p5sqec1dWMep/view?usp=shari
 
 I would like to make a smoother transition for the breakpoint at 785px since I transitioned from grid to flexbox for the profile element and the transition is pretty jarring.
 
-I would like to add the capability to add more text for each card so it could function as a "travel diary" or sorts.
+I would like to add the capability to add more text for each card so it could function as a "travel diary" of sorts.
+
+The submission button is disabled until form validation passes. However, when the form is closed and then reopened, the submission button is enabled. This should be fixed in later versions.
