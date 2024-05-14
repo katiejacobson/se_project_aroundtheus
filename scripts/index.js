@@ -156,10 +156,17 @@ cardEditModal.addEventListener("mousedown", (evt) => {
   }
 });
 
+previewImageModal.addEventListener("mousedown", (evt) => {
+  if (evt.target.classList.contains("modal")) {
+    closeModal(previewImageModal);
+  }
+});
+
 window.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
     closeModal(cardEditModal);
     closeModal(profileEditModal);
+    closeModal(previewImageModal);
   }
 });
 
