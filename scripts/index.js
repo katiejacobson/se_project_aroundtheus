@@ -62,10 +62,12 @@ const cardImageInput = cardEditModal.querySelector("#url");
 //Functions
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscape);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", handleEscape);
 }
 
 function handleProfileFormSubmit(evt) {
@@ -117,10 +119,10 @@ function renderCard(cardData) {
   galleryCards.prepend(cardElement);
 }
 
-function escapeKey(evt) {
-  if ((evt.key = "Esc")) {
-    closeModal(profileEditModal);
-    closeModal(cardEditModal);
+function handleEscape(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    closeModal(openedModal);
   }
 }
 
@@ -131,43 +133,22 @@ profileEditButton.addEventListener("click", () => {
   jobInput.value = profileJob.textContent;
 });
 
-profileModalCloseButton.addEventListener("click", () =>
-  closeModal(profileEditModal)
-);
-
 newCardButton.addEventListener("click", () => openModal(cardEditModal));
-newCardCloseButton.addEventListener("click", () => closeModal(cardEditModal));
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 cardFormElement.addEventListener("submit", handleNewCardFormSubmit);
-previewImageCloseButton.addEventListener("click", () =>
-  closeModal(previewImageModal)
-);
 
-profileEditModal.addEventListener("mousedown", (evt) => {
-  if (evt.target.classList.contains("modal")) {
-    closeModal(profileEditModal);
-  }
-});
+const popups = document.querySelectorAll(".modal");
 
-cardEditModal.addEventListener("mousedown", (evt) => {
-  if (evt.target.classList.contains("modal")) {
-    closeModal(cardEditModal);
-  }
-});
-
-previewImageModal.addEventListener("mousedown", (evt) => {
-  if (evt.target.classList.contains("modal")) {
-    closeModal(previewImageModal);
-  }
-});
-
-window.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closeModal(cardEditModal);
-    closeModal(profileEditModal);
-    closeModal(previewImageModal);
-  }
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("modal_opened")) {
+      closeModal(popup);
+    }
+    if (evt.target.classList.contains("modal__close-button")) {
+      closeModal(popup);
+    }
+  });
 });
 
 //Display cards

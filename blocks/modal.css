@@ -141,6 +141,7 @@
   .modal__container {
     max-width: 282px;
     padding: 22px;
+    box-sizing: border-box;
   }
 
   .modal__close-button {
@@ -153,6 +154,10 @@
   .modal__heading {
     font-size: 18px;
     margin-bottom: 45px;
+  }
+
+  .modal__form-field {
+    width: 238px;
   }
 
   .modal__input {
