@@ -1,3 +1,6 @@
+import Card from "../components/Card.js";
+import FormValidation from "../components/FormValidator.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -81,42 +84,20 @@ function handleNewCardFormSubmit(evt) {
   evt.preventDefault();
   const name = cardTitleInput.value;
   const link = cardImageInput.value;
-  renderCard({ name, link }, galleryCards);
+  const card = new Card({ name, link }, "#card-template");
+  const cardElement = card.generateCard();
+
+  galleryCards.prepend(cardElement);
   evt.target.reset();
+  cardFormValidator.toggleButtonState();
   closeModal(cardEditModal);
 }
 
-function getCardElement(data) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  cardElement.querySelector(".card__title").textContent = data.name;
-  const cardImage = cardElement.querySelector(".card__image");
-  cardImage.src = data.link;
-  cardImage.alt = data.name;
-  const cardLikeButton = cardElement.querySelector(".card__like-button");
-  cardLikeButton.addEventListener("click", () => {
-    cardLikeButton.classList.toggle("card__like-button_active");
-  });
-
-  const cardDeleteButton = cardElement.querySelector(".card__trash-icon");
-  cardDeleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
-
-  const previewImageButton = cardElement.querySelector("#card__preview-button");
-
-  previewImageButton.addEventListener("click", () => {
-    openModal(previewImageModal);
-    previewImageDisplay.src = data.link;
-    previewImageDisplay.alt = data.name;
-    previewImageText.textContent = data.name;
-  });
-
-  return cardElement;
-}
-
-function renderCard(cardData) {
-  const cardElement = getCardElement(cardData);
-  galleryCards.prepend(cardElement);
+function handleImageClick(name, link) {
+  openModal(previewImageModal);
+  previewImageDisplay.src = link;
+  previewImageDisplay.alt = name;
+  previewImageText.textContent = name;
 }
 
 function handleEscape(evt) {
@@ -151,5 +132,36 @@ popups.forEach((popup) => {
   });
 });
 
-//Display cards
-initialCards.forEach((cardData) => renderCard(cardData, galleryCards));
+//Create new cards
+
+initialCards.forEach((cardData) => {
+  const card = new Card(cardData, "#card-template", handleImageClick);
+  const cardElement = card.generateCard();
+
+  galleryCards.prepend(cardElement);
+});
+
+//Form Validation
+
+const formValidationConfig = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+const editFormValidator = new FormValidation(
+  formValidationConfig,
+  "#edit-modal"
+);
+
+editFormValidator.enableValidation();
+
+const cardFormValidator = new FormValidation(
+  formValidationConfig,
+  "#card-modal"
+);
+
+cardFormValidator.enableValidation();
