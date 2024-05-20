@@ -65,7 +65,7 @@ export default class FormValidation {
   }
 
   enableValidation() {
-    const _formList = Array.from(document.querySelectorAll(this._formSelector));
+    const _formList = document.querySelectorAll(this._inputElement);
     _formList.forEach((inputElement) => {
       inputElement.addEventListener("submit", (evt) => {
         evt.preventDefault();
