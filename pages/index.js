@@ -84,7 +84,7 @@ function handleNewCardFormSubmit(evt) {
   evt.preventDefault();
   const name = cardTitleInput.value;
   const link = cardImageInput.value;
-  const card = new Card({ name, link }, "#card-template");
+  const card = new Card({ name, link }, "#card-template", handleImageClick);
   const cardElement = card.generateCard();
 
   galleryCards.prepend(cardElement);
