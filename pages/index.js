@@ -80,12 +80,16 @@ function handleProfileFormSubmit(evt) {
   closeModal(profileEditModal);
 }
 
+function createCard(data) {
+  const card = new Card(data, "#card-template", handleImageClick);
+  return card.generateCard();
+}
+
 function handleNewCardFormSubmit(evt) {
   evt.preventDefault();
   const name = cardTitleInput.value;
   const link = cardImageInput.value;
-  const card = new Card({ name, link }, "#card-template", handleImageClick);
-  const cardElement = card.generateCard();
+  const cardElement = createCard({ name, link });
 
   galleryCards.prepend(cardElement);
   evt.target.reset();
@@ -112,6 +116,7 @@ profileEditButton.addEventListener("click", () => {
   openModal(profileEditModal);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  editFormValidator.resetValidation();
 });
 
 newCardButton.addEventListener("click", () => openModal(cardEditModal));
@@ -135,8 +140,7 @@ popups.forEach((popup) => {
 //Create new cards
 
 initialCards.forEach((cardData) => {
-  const card = new Card(cardData, "#card-template", handleImageClick);
-  const cardElement = card.generateCard();
+  const cardElement = createCard(cardData);
 
   galleryCards.prepend(cardElement);
 });

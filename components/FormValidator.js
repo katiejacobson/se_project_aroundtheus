@@ -1,12 +1,12 @@
 export default class FormValidation {
-  constructor(settings, inputElement) {
+  constructor(settings, formElement) {
     this._formSelector = settings.formSelector;
     this._inputSelector = settings.inputSelector;
     this._submitButtonSelector = settings.submitButtonSelector;
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
-    this._inputElement = inputElement;
+    this._formElement = formElement;
   }
 
   _showInputError(inputElement, errorMessage) {
@@ -34,6 +34,14 @@ export default class FormValidation {
   _hasInvalidInput() {
     return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
+    });
+  }
+
+  resetValidation() {
+    this.toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
     });
   }
 
@@ -65,8 +73,7 @@ export default class FormValidation {
   }
 
   enableValidation() {
-    const _formList = document.querySelectorAll(this._inputElement);
-    _formList.forEach((inputElement) => {
+    document.querySelectorAll(this._formElement).forEach((inputElement) => {
       inputElement.addEventListener("submit", (evt) => {
         evt.preventDefault();
       });
