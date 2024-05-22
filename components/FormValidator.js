@@ -55,11 +55,11 @@ export default class FormValidation {
     }
   }
 
-  _setEventListeners(inputElement) {
+  _setEventListeners() {
     this._inputList = Array.from(
-      inputElement.querySelectorAll(this._inputSelector)
+      this._formElement.querySelectorAll(this._inputSelector)
     );
-    this._buttonElement = inputElement.querySelector(
+    this._buttonElement = this._formElement.querySelector(
       this._submitButtonSelector
     );
     this.toggleButtonState();
@@ -73,11 +73,9 @@ export default class FormValidation {
   }
 
   enableValidation() {
-    document.querySelectorAll(this._formElement).forEach((inputElement) => {
-      inputElement.addEventListener("submit", (evt) => {
-        evt.preventDefault();
-      });
-      this._setEventListeners(inputElement);
+    this._formElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
     });
+    this._setEventListeners();
   }
 }

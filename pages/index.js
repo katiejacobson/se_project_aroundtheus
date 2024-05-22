@@ -158,14 +158,14 @@ const formValidationConfig = {
 
 const editFormValidator = new FormValidation(
   formValidationConfig,
-  "#profile-form"
+  profileFormElement
 );
 
 editFormValidator.enableValidation();
 
 const cardFormValidator = new FormValidation(
   formValidationConfig,
-  "#add-card-form"
+  cardFormElement
 );
 
 cardFormValidator.enableValidation();
