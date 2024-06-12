@@ -2,6 +2,7 @@
 
 export default class Card {
   constructor(data, cardSelector, handleImageClick) {
+    this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
@@ -43,7 +44,7 @@ export default class Card {
     this._element
       .querySelector("#card__preview-button")
       .addEventListener("click", () => {
-        this._handleImageClick(this._name, this._link);
+        this._handleImageClick(this._data);
       });
   }
 
