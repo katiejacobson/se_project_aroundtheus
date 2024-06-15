@@ -55,6 +55,14 @@ export default class FormValidation {
     }
   }
 
+  disableSubmitButton = () => {
+    const buttonElement = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
+    buttonElement.classList.add(this._inactiveButtonClass);
+    buttonElement.disabled = true;
+  };
+
   _setEventListeners() {
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)

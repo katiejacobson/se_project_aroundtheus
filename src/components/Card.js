@@ -18,6 +18,14 @@ export default class Card {
     return _cardElement;
   }
 
+  // getView() {
+  //   console.log("inside get view");
+  //   this._element = this._getTemplate();
+  //   this._likeButton = this._element.querySelector(".card__like-button");
+  //   this._cardImage = this._element.querySelector(".card__image");
+  //   this._trashButton = this._element.querySelector(".card__trash-button");
+  // }
+
   _handleLikeButtonClick() {
     this._element
       .querySelector(".card__like-button")

@@ -1,7 +1,6 @@
 import "../pages/index.css";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
@@ -9,7 +8,6 @@ import FormValidation from "../components/FormValidator.js";
 import { initialCards } from "../utils/constants.js";
 
 //Wrappers
-const galleryCards = document.querySelector(".gallery__cards");
 const profileEditModal = document.querySelector("#edit-modal");
 const profileFormElement = document.querySelector("#profile-form");
 const cardFormElement = document.querySelector("#add-card-form");
@@ -35,25 +33,31 @@ function createCard(data) {
   return card.generateCard();
 }
 
+//Create new cards - new code
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: createCard,
+  },
+  ".gallery__cards"
+);
+
+cardList.renderItems();
+
 function handleNewCardFormSubmit(userInfo) {
   const name = userInfo.title;
   const link = userInfo.url;
-  const newCard = new Section(
-    {
-      items: { name, link },
-      renderer: createCard,
-    },
-    galleryCards
-  );
-  newCard.addItem();
-  cardFormValidator.toggleButtonState();
+  cardList.addItem({ name, link });
+  cardFormValidator.disableSubmitButton();
   cardPopupForm.close();
+  cardFormElement.reset();
 }
 
+//new Popup with Image
+const popupWithImage = new PopupWithImage("#image-modal");
+popupWithImage.setEventListeners();
+
 function handleImageClick(data) {
-  //new Popup with Image
-  const popupWithImage = new PopupWithImage("#image-modal");
-  popupWithImage.setEventListeners();
   popupWithImage.open(data);
 }
 
@@ -79,17 +83,6 @@ profileEditButton.addEventListener("click", () => {
 });
 
 newCardButton.addEventListener("click", () => cardPopupForm.open());
-
-//Create new cards - new code
-const defaultCardList = new Section(
-  {
-    items: initialCards,
-    renderer: createCard,
-  },
-  galleryCards
-);
-
-defaultCardList.renderItems();
 
 //Form Validation
 
