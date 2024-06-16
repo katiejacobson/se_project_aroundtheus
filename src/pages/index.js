@@ -5,7 +5,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidation from "../components/FormValidator.js";
-import { initialCards } from "../utils/constants.js";
+import { initialCards, formValidationConfig } from "../utils/constants.js";
 
 //Wrappers
 const profileEditModal = document.querySelector("#edit-modal");
@@ -83,17 +83,6 @@ profileEditButton.addEventListener("click", () => {
 });
 
 newCardButton.addEventListener("click", () => cardPopupForm.open());
-
-//Form Validation
-
-const formValidationConfig = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
 
 const editFormValidator = new FormValidation(
   formValidationConfig,
