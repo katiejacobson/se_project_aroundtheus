@@ -1,12 +1,15 @@
 //OOP
 
 export default class Card {
-  constructor(data, cardSelector, handleImageClick) {
+  constructor(data, cardSelector, handleImageClick, handleDeleteClick) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._cardId = data._id;
+    this._isLiked = data.isLiked;
+    this._handleDeleteClick = handleDeleteClick;
   }
 
   _getTemplate() {
@@ -46,7 +49,8 @@ export default class Card {
     this._element
       .querySelector(".card__trash-icon")
       .addEventListener("click", () => {
-        this._handleTrashButtonClick();
+        this._handleDeleteClick(this);
+        // this._handleTrashButtonClick();
       });
 
     this._element
@@ -65,5 +69,13 @@ export default class Card {
     this._element.querySelector(".card__image").alt = this._name;
 
     return this._element;
+  }
+
+  removeCard() {
+    this._element.remove();
+  }
+
+  getId() {
+    return this._cardId;
   }
 }
