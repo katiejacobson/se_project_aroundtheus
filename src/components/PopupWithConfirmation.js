@@ -7,13 +7,14 @@ export default class PopupWithFormSubmit extends Popup {
   }
 
   setSubmitAction(action) {
-    this._deleteConfirmationHandler = action;
+    this._submitAction = action;
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupForm.addEventListener("submit", () => {
-      this._deleteConfirmationHandler;
+    this._popupForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._submitAction();
     });
   }
 }

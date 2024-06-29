@@ -61,7 +61,8 @@ function createCard(data) {
     data,
     "#card-template",
     handleImageClick,
-    handleDeleteClick
+    handleDeleteClick,
+    handleLikeClick
   );
   return card.generateCard();
 }
@@ -88,6 +89,7 @@ const cardPopupForm = new PopupWithForm("#card-modal", handleNewCardFormSubmit);
 cardPopupForm.setEventListeners();
 
 function handleNewCardFormSubmit(userInfo) {
+  console.log(userInfo);
   api
     .addCard(userInfo)
     .then((res) => {
@@ -95,12 +97,6 @@ function handleNewCardFormSubmit(userInfo) {
     })
     .then(cardPopupForm.close())
     .catch((err) => console.error(err));
-  // const name = userInfo.title;
-  // const link = userInfo.url;
-  // cardList.addItem({ name, link });
-  // cardFormValidator.disableSubmitButton();
-  // cardPopupForm.close();
-  // cardFormElement.reset();
 }
 
 //delete card
@@ -109,35 +105,39 @@ const deleteConfirmPopup = new popupWithConfirmation("#confirm-modal");
 deleteConfirmPopup.setEventListeners();
 
 function handleDeleteClick(card) {
-  console.log(card);
   deleteConfirmPopup.open();
-  api.deleteCard(card.getId());
-  // deleteConfirmPopup.setSubmitAction(() =>
-  //   api
-  //     .deleteCard(deleteCardId)
-  //     .then(() => {
-  //       console.log(card);
-  //       card.removeCard();
-  //       deleteConfirmPopup.close();
-  //     })
-  //     .catch((err) => console.error(err))
-  // );
+  deleteConfirmPopup.setSubmitAction(() =>
+    api
+      .deleteCard(card.getId())
+      .then(() => {
+        card.removeCard();
+        deleteConfirmPopup.close();
+      })
+      .catch((err) => console.error(err))
+  );
 }
 
-function handleLikeClick(id) {
-  //conditional for toggle of like
+function handleLikeClick(card) {
+  console.log(card.getLikes());
+  if (card.getLikes() === true) {
+    api
+      .dislikeCard(card.getId())
+      .then((res) => {
+        console.log(res.isLiked);
+        card.renderLikes(res.isLiked);
+      })
+      .catch((err) => console.error(err));
+  } else {
+    api
+      .likeCard(card.getId())
+      .then((res) => {
+        console.log(res.isLiked);
+        card.renderLikes(res.isLiked);
+      })
+      .catch((err) => console.error(err));
+  }
+  console.log(card);
 }
-
-//Create new cards - new code
-// const cardList = new Section(
-//   {
-//     items: initialCards,
-//     renderer: createCard,
-//   },
-//   ".gallery__cards"
-// );
-
-// cardList.renderItems();
 
 //Preview Image
 const popupWithImage = new PopupWithImage("#image-modal");

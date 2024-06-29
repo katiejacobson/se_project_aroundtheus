@@ -49,14 +49,23 @@ export default class Api {
   }
 
   deleteCard(data) {
-    console.log(data);
     return fetch(`${this._baseUrl}/cards/${data}`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this.renderResult);
   }
 
-  likeCard() {}
+  likeCard(data) {
+    return fetch(`${this._baseUrl}/cards/${data}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this.renderResult);
+  }
 
-  dislikeCard() {}
+  dislikeCard(data) {
+    return fetch(`${this._baseUrl}/cards/${data}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this.renderResult);
+  }
 }
