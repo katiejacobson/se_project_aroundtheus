@@ -31,21 +31,53 @@ const api = new Api({
   },
 });
 
-//profile information from server
+//information from server
 
-const userInfo = new UserInfo(".profile__title", ".profile__description");
+let cardList;
+let userInfo;
 
 api
-  .getInfo()
-  .then((res) => userInfo.setUserInfo(res))
+  .loadPageResults()
+  .then(([cards, userData]) => {
+    console.log(cards);
+    console.log(userData);
+    cardList = new Section(
+      {
+        items: cards,
+        renderer: createCard,
+      },
+      ".gallery__cards"
+    );
+    cardList.renderItems();
+    userInfo = new UserInfo(
+      ".profile__title",
+      ".profile__description",
+      ".profile__image"
+    );
+    userInfo.setUserInfo(userData);
+  })
   .catch((err) => console.error(err));
 
-//profile form
+//Render Loading
+function renderLoading(isLoading) {
+  if (isLoading) {
+  }
+}
+
+//edit profile information
 
 function handleProfileFormSubmit(userData) {
-  profilePopupForm.close();
-  userInfo.setUserInfo(userData);
-  api.editProfile(userData);
+  profilePopupForm.setLoading(true, "Saving...");
+  api
+    .editProfile(userData)
+    .then((res) => {
+      profilePopupForm.close();
+      api.getInfo();
+      return res;
+    })
+    .then((res) => userInfo.setUserInfo(res))
+    .catch((err) => console.error(err))
+    .finally(() => profilePopupForm.setLoading(false, "Save"));
 }
 
 const profilePopupForm = new PopupWithForm(
@@ -54,7 +86,36 @@ const profilePopupForm = new PopupWithForm(
 );
 profilePopupForm.setEventListeners();
 
-//Cards
+//edit profile image
+
+const profileImagePopupForm = new PopupWithForm(
+  "#picture-modal",
+  handleProfilePictureFormSubmit
+);
+profileImagePopupForm.setEventListeners();
+
+const profileImageEditButton = document.querySelector(
+  ".profile-image__edit-button"
+);
+
+profileImageEditButton.addEventListener("click", (evt) => {
+  evt.preventDefault();
+  profileImagePopupForm.open();
+});
+
+function handleProfilePictureFormSubmit(userData) {
+  profileImagePopupForm.setLoading(true, "Saving...");
+  api
+    .updateProfilePicture(userData.profileurl)
+    .then((res) => {
+      profileImagePopupForm.close();
+      userInfo.setUserImage(res.avatar);
+    })
+    .catch((err) => console.error(err))
+    .finally(() => profilePopupForm.setLoading(false, "Save"));
+}
+
+//Edit Cards
 
 function createCard(data) {
   const card = new Card(
@@ -67,63 +128,45 @@ function createCard(data) {
   return card.generateCard();
 }
 
-let cardList;
-
-api
-  .getInitialCards()
-  .then((cards) => {
-    console.log(cards);
-    cardList = new Section(
-      {
-        items: cards,
-        renderer: createCard,
-      },
-      ".gallery__cards"
-    );
-    cardList.renderItems();
-  })
-  .catch((err) => console.error(err));
-
-//create card
 const cardPopupForm = new PopupWithForm("#card-modal", handleNewCardFormSubmit);
 cardPopupForm.setEventListeners();
 
 function handleNewCardFormSubmit(userInfo) {
-  console.log(userInfo);
+  cardPopupForm.setLoading(true, "Saving...");
   api
     .addCard(userInfo)
     .then((res) => {
       cardList.addItem(res);
     })
     .then(cardPopupForm.close())
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err))
+    .finally(() => cardPopupForm.setLoading(false, "Create"));
 }
-
-//delete card
 
 const deleteConfirmPopup = new popupWithConfirmation("#confirm-modal");
 deleteConfirmPopup.setEventListeners();
 
 function handleDeleteClick(card) {
   deleteConfirmPopup.open();
+
   deleteConfirmPopup.setSubmitAction(() =>
     api
       .deleteCard(card.getId())
       .then(() => {
+        deleteConfirmPopup.setLoading(true, "Saving...");
         card.removeCard();
         deleteConfirmPopup.close();
       })
       .catch((err) => console.error(err))
+      .finally(() => deleteConfirmPopup.setLoading(false, "Yes"))
   );
 }
 
 function handleLikeClick(card) {
-  console.log(card.getLikes());
   if (card.getLikes() === true) {
     api
       .dislikeCard(card.getId())
       .then((res) => {
-        console.log(res.isLiked);
         card.renderLikes(res.isLiked);
       })
       .catch((err) => console.error(err));
@@ -131,15 +174,13 @@ function handleLikeClick(card) {
     api
       .likeCard(card.getId())
       .then((res) => {
-        console.log(res.isLiked);
         card.renderLikes(res.isLiked);
       })
       .catch((err) => console.error(err));
   }
-  console.log(card);
 }
 
-//Preview Image
+//Preview Images
 const popupWithImage = new PopupWithImage("#image-modal");
 popupWithImage.setEventListeners();
 
@@ -158,6 +199,7 @@ profileEditButton.addEventListener("click", () => {
 
 newCardButton.addEventListener("click", () => cardPopupForm.open());
 
+//Validation
 const editFormValidator = new FormValidation(
   formValidationConfig,
   profileFormElement

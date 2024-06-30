@@ -35,8 +35,6 @@ export default class Api {
     }).then(this.renderResult);
   }
 
-  updateAvatar() {}
-
   addCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
@@ -67,5 +65,19 @@ export default class Api {
       method: "DELETE",
       headers: this._headers,
     }).then(this.renderResult);
+  }
+
+  updateProfilePicture(link) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: link,
+      }),
+    }).then(this.renderResult);
+  }
+
+  loadPageResults() {
+    return Promise.all([this.getInitialCards(), this.getInfo()]);
   }
 }
