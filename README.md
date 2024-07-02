@@ -1,4 +1,4 @@
-# Project 3: Around The U.S.
+# Project 9: Around The U.S.
 
 ### Overview
 
@@ -18,6 +18,8 @@ Update: This project has been updated with form validation. Additionally, users 
 
 Update: This project utilizes classes to make the javascript modular and is bundled with webpack.
 
+Update: The project utilizes an api to store user information including name, job description, profile picture, and cards with likes.
+
 **Description of Techniques**
 
 This is a chance to practice using flexbox and grid displays and positioning elements for different display sizes. While the gallery of images is responsive due to grid and grid-template-columns with auto-fit, media queries were used to make breakpoints at 480px and 785px. Flexbox was used for the profile elements and changing to flex-direction: columns at lower screen sizes allowed a reorganization of the profile elements so they stacked on top of each other.
@@ -27,6 +29,8 @@ Vanilla JS has been used to add functionality including opening and closing prof
 Update: Users can input data (name and image url) into the "add card" form and a new card will be added with the name and image. Additionally, classList.add and classList.remove have been used to allow modals to be opened and closed.
 
 Update: Form validation has been enabled using the ValidityState property to validate form input. The submission button is also disabled until valid form input is added to the text field. Event Listeners for mousedown and keydown for Escape have been added to close the modal windows.
+
+Update: An API has been utilized to allow information to be stored between sessions. Additionally, asynchronous methods have been employed through the use of promises.
 
 **Figma**
 

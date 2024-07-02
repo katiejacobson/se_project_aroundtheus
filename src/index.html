@@ -16,11 +16,14 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            class="profile__image"
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="profile pic of jacques cousteu"
-          />
+          <div class="profile__avatar">
+            <img
+              class="profile__image"
+              src="<%=require('./images/jacques-cousteau.jpg')%>"
+              alt="profile picture"
+            />
+            <button class="profile-image__edit-button"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -83,7 +86,7 @@
           <div class="modal__form-field">
             <input
               class="modal__input"
-              name="title"
+              name="name"
               type="text"
               id="profile-title"
               placeholder="Name"
@@ -96,7 +99,7 @@
             <input
               class="modal__input"
               type="text"
-              name="description"
+              name="about"
               id="description"
               placeholder="Job"
               required
@@ -120,7 +123,7 @@
           aria-label="close"
         ></button>
         <h2 class="modal__heading">New Place</h2>
-        <form class="modal__form" id="add-card-form">
+        <form class="modal__form" id="add-card-form" novalidate>
           <div class="modal__form-field">
             <input
               class="modal__input"
@@ -162,6 +165,55 @@
         ></button>
         <img class="modal__image-preview" src="" alt="name" />
         <p class="modal__image-text" id="modal__image-text"></p>
+      </div>
+    </div>
+
+    <!-- Add Confirm Button -->
+    <div class="modal" id="confirm-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close-button"
+          type="button"
+          aria-label="close"
+        ></button>
+        <h2 class="modal__heading_confirm">Are you sure?</h2>
+        <form class="modal__form" id="confirm-form">
+          <button
+            class="modal__button_confirm"
+            type="submit"
+            aria-label="submit"
+          >
+            Yes
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Change Profile Picture -->
+    <div class="modal" id="picture-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close-button"
+          type="button"
+          aria-label="close"
+        ></button>
+        <h2 class="modal__heading_confirm">Change Profile Picture</h2>
+        <form class="modal__form" id="change-profilepic-form" novalidate>
+          <div class="modal__form-field">
+            <input
+              class="modal__input"
+              type="url"
+              name="profileurl"
+              id="profileurl"
+              placeholder="Profile Picture URL"
+              required
+            />
+            <span class="modal__error" id="profileurl-error"></span>
+          </div>
+          <button class="modal__button" type="submit" aria-label="submit">
+            Submit
+          </button>
+        </form>
       </div>
     </div>
   </body>
