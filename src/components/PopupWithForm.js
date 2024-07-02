@@ -18,10 +18,12 @@ export default class PopupWithForm extends Popup {
     return formInputs;
   }
 
-  setLoading(isLoading, buttonValue) {
-    this._submitButton.textContent = isLoading
-      ? buttonValue
-      : this._submitButtonValue;
+  setLoading(isLoading, loadingText = "Saving...") {
+    if (isLoading) {
+      this._submitButton.textContent = loadingText;
+    } else {
+      this._submitButton.textContent = this._submitButtonValue;
+    }
   }
 
   setEventListeners() {
@@ -30,7 +32,6 @@ export default class PopupWithForm extends Popup {
       evt.preventDefault();
       const userInfo = this._getInputValues();
       this._handleFormSubmit(userInfo);
-      evt.target.reset();
     });
   }
 }

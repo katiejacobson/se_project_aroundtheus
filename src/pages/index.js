@@ -13,6 +13,7 @@ import Api from "../components/Api.js";
 const profileEditModal = document.querySelector("#edit-modal");
 const profileFormElement = document.querySelector("#profile-form");
 const cardFormElement = document.querySelector("#add-card-form");
+const avatarFormElement = document.querySelector("#change-profilepic-form");
 
 //Buttons and other DOM nodes
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -56,28 +57,21 @@ api
     );
     userInfo.setUserInfo(userData);
   })
-  .catch((err) => console.error(err));
-
-//Render Loading
-function renderLoading(isLoading) {
-  if (isLoading) {
-  }
-}
+  .catch(console.error);
 
 //edit profile information
 
 function handleProfileFormSubmit(userData) {
-  profilePopupForm.setLoading(true, "Saving...");
+  profilePopupForm.setLoading(true);
   api
     .editProfile(userData)
     .then((res) => {
       profilePopupForm.close();
-      api.getInfo();
       return res;
     })
     .then((res) => userInfo.setUserInfo(res))
-    .catch((err) => console.error(err))
-    .finally(() => profilePopupForm.setLoading(false, "Save"));
+    .catch(console.error)
+    .finally(() => profilePopupForm.setLoading(false));
 }
 
 const profilePopupForm = new PopupWithForm(
@@ -101,18 +95,20 @@ const profileImageEditButton = document.querySelector(
 profileImageEditButton.addEventListener("click", (evt) => {
   evt.preventDefault();
   profileImagePopupForm.open();
+  avatarFormValidator.resetValidation();
 });
 
 function handleProfilePictureFormSubmit(userData) {
-  profileImagePopupForm.setLoading(true, "Saving...");
+  profileImagePopupForm.setLoading(true);
   api
     .updateProfilePicture(userData.profileurl)
     .then((res) => {
+      avatarFormElement.reset();
       profileImagePopupForm.close();
       userInfo.setUserImage(res.avatar);
     })
-    .catch((err) => console.error(err))
-    .finally(() => profilePopupForm.setLoading(false, "Save"));
+    .catch(console.error)
+    .finally(() => profileImagePopupForm.setLoading(false));
 }
 
 //Edit Cards
@@ -132,15 +128,18 @@ const cardPopupForm = new PopupWithForm("#card-modal", handleNewCardFormSubmit);
 cardPopupForm.setEventListeners();
 
 function handleNewCardFormSubmit(userInfo) {
-  cardPopupForm.setLoading(true, "Saving...");
+  cardPopupForm.setLoading(true);
   api
     .addCard(userInfo)
     .then((res) => {
       cardList.addItem(res);
     })
-    .then(cardPopupForm.close())
-    .catch((err) => console.error(err))
-    .finally(() => cardPopupForm.setLoading(false, "Create"));
+    .then(() => {
+      cardFormElement.reset();
+      cardPopupForm.close();
+    })
+    .catch(console.error)
+    .finally(() => cardPopupForm.setLoading(false));
 }
 
 const deleteConfirmPopup = new popupWithConfirmation("#confirm-modal");
@@ -149,17 +148,17 @@ deleteConfirmPopup.setEventListeners();
 function handleDeleteClick(card) {
   deleteConfirmPopup.open();
 
-  deleteConfirmPopup.setSubmitAction(() =>
+  deleteConfirmPopup.setSubmitAction(() => {
+    deleteConfirmPopup.setLoading(true);
     api
       .deleteCard(card.getId())
       .then(() => {
-        deleteConfirmPopup.setLoading(true, "Saving...");
         card.removeCard();
         deleteConfirmPopup.close();
       })
-      .catch((err) => console.error(err))
-      .finally(() => deleteConfirmPopup.setLoading(false, "Yes"))
-  );
+      .catch(console.error)
+      .finally(() => deleteConfirmPopup.setLoading(false));
+  });
 }
 
 function handleLikeClick(card) {
@@ -169,14 +168,14 @@ function handleLikeClick(card) {
       .then((res) => {
         card.renderLikes(res.isLiked);
       })
-      .catch((err) => console.error(err));
+      .catch(console.error);
   } else {
     api
       .likeCard(card.getId())
       .then((res) => {
         card.renderLikes(res.isLiked);
       })
-      .catch((err) => console.error(err));
+      .catch(console.error);
   }
 }
 
@@ -197,7 +196,10 @@ profileEditButton.addEventListener("click", () => {
   editFormValidator.resetValidation();
 });
 
-newCardButton.addEventListener("click", () => cardPopupForm.open());
+newCardButton.addEventListener("click", () => {
+  cardPopupForm.open();
+  cardFormValidator.resetValidation();
+});
 
 //Validation
 const editFormValidator = new FormValidation(
@@ -213,3 +215,9 @@ const cardFormValidator = new FormValidation(
 );
 
 cardFormValidator.enableValidation();
+
+const avatarFormValidator = new FormValidation(
+  formValidationConfig,
+  avatarFormElement
+);
+avatarFormValidator.enableValidation();

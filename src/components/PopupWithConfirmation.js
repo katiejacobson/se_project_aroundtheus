@@ -14,10 +14,12 @@ export default class PopupWithFormSubmit extends Popup {
     this._submitAction = action;
   }
 
-  setLoading(isLoading, buttonValue) {
-    this._submitButton.textContent = isLoading
-      ? buttonValue
-      : this._submitButtonValue;
+  setLoading(isLoading, loadingText = "Deleting...") {
+    if (isLoading) {
+      this._submitButton.textContent = loadingText;
+    } else {
+      this._submitButton.textContent = this._submitButtonValue;
+    }
   }
 
   setEventListeners() {
